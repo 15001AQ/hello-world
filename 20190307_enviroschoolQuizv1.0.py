@@ -22,11 +22,17 @@ def launch(win):
         app.showSubWindow("question 1")
         app.setLabel("Questions",questionList[0].show())
         app.getEntry("Your Answer:")
-        if win == "Enter Answer":
-            app.showSubWindow("correct")
+        
     elif win == "Exit":
         app.stop()
     
+def check(button):
+    if button == "Enter Answer":
+        correct()
+    elif button == "Go back":
+        app.stop()
+    
+        
 #main routine - setting up the GUI
 app.addLabel("title", "Welcome to my Environment Quiz")
 app.addLabel("belowtitle", "In this quiz, you will be asked various questions\n        on the problems with our environment")
@@ -40,7 +46,7 @@ app.setBg("light green")
 app.setSize(400,400)
 app.addLabel("Questions", "")
 app.addLabelEntry("Your Answer:")
-app.addButtons(["Enter answer", "Go back"],launch)
+app.addButtons(["Enter answer", "Go back"],check)
 app.stopSubWindow()
 
 app.startSubWindow("correct")
@@ -49,7 +55,7 @@ app.addLabel("f", "f")
 app.stopSubWindow()
 
 
-questionList.append(Question("How long?","7","3","2","5"))
+questionList.append(Question("What is water pollution caused by?","sewage","oil spills","acid rain","rubbish"))
 questionList.append(Question("How high?","7","3","2","5"))
 
 questionList[0].show()
