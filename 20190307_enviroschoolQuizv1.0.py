@@ -19,19 +19,12 @@ class Question:
     
     def correctOrNot(self):
         userAnswer = app.getOptionBox("Your Answer:")
-        x = level
-        if userAnswer == self.cans:
-            if x == 0:
-                x = x + 1
-                app.setLabel("Questions",questionList[x].show())
-                changingQ()
-            elif x == 1:
-                x = x + 1
-                app.setLabel("Questions",questionList[x].show())
-                changingQ()
-        else: 
-            app.stop()
-        
+        while userAnswer != self.cans:
+            app.setLabel("wrongOrRight", "Your answer is wrong, please try again.")
+            if userAnswer == self.cans:
+                app.setLabel("wrongOrRight", "Correct Answer!")
+                break
+        swappingQ()
   
 #main routine
 def launch(win):
@@ -48,12 +41,23 @@ def check(button):
     elif button == "Go back":
         app.stop()
 
-def changingQ():
-    if x == 1:
-        app.changeOptionBox("Your Answer:",["7","3","2","5"])
+def swappingQ():
+    x = level
+    if x == 0:
+        x = x + 1
+        app.setLabel("Questions",questionList[x].show())
+        app.changeOptionBox("Your Answer:",["carbon dioxide emission","summer season","moving closer to the sun","overpopulation"])
+    elif x == 1:
+        x = x + 1
+        app.setLabel("Questions",questionList[x].show())
+        app.changeOptionBox("Your Answer:",["wind turbines, solar energy","burning coal","use plastic","fossil fuels"])  
     elif x == 2:
-        app.changeOptionBox("Your Answer:",["5","3","2","5"])
-        
+        x = x + 1
+        app.setLabel("Questions",questionList[x].show())
+        app.changeOptionBox("Your Answer:",["ice melting, rising temps and sea level", "more food will grow","less nasty weather","nothing bad will happen"])   
+    else:
+        app.stop()
+            
 #main routine - setting up the GUI
 app.addLabel("title", "Welcome to my Environment Quiz")
 app.addLabel("belowtitle", "In this quiz, you will be asked various questions\n        on the problems with our environment")
@@ -66,6 +70,7 @@ app.startSubWindow("questions", modal=True)
 app.setBg("light green")
 app.setSize(400,400)
 app.addLabel("Questions", "")
+app.addLabel("wrongOrRight", "")
 app.addLabelOptionBox("Your Answer:",["sewage, oil spills", "people swimming","people driving boats","climate change"])
 
 app.addButtons(["Enter Answer", "Go back"],check)
@@ -79,8 +84,9 @@ app.stopSubWindow()
 
 
 questionList.append(Question("What is water pollution caused by?","sewage, oil spills", "people swimming","people driving boats","climate change"))
-questionList.append(Question("What is causing global warming?","7","3","2","5"))
-questionList.append(Question("What is causing eghioehogbewogglobal warming?","5","3","2","5"))
+questionList.append(Question("What is causing global warming?","carbon dioxide emission","summer season","moving closer to the sun","overpopulation"))
+questionList.append(Question("What could we use to produce renewable energy?","wind turbines, solar energy","burning coal","use plastic","fossil fuels"))
+questionList.append(Question("What are the effects of climate change?","ice melting, rising temps and sea level", "more food will grow","less nasty weather","nothing bad will happen"))
 
 
 app.go()
